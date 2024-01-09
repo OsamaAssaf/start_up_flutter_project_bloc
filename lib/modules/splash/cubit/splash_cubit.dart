@@ -6,7 +6,7 @@ class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(SplashInitial());
 
   Future<void> checkConnection() async {
-    final bool result = await Components.checkConnection();
+    final bool result = await Components().checkConnection();
     if (result == true) {
       navigatorKey.currentState!.pushReplacementNamed(Routes.authRoute);
     } else {
