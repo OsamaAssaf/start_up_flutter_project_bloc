@@ -1,9 +1,7 @@
 import '../../../resources/helpers/all_imports.dart';
 
 class HomeView extends StatelessWidget {
-  HomeView({super.key});
-
-  final HomeController homeController = Get.find();
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {

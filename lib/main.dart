@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) {
         localizations = AppLocalizations.of(context)!;
@@ -63,11 +63,12 @@ class _MyAppState extends State<MyApp> {
         return child!;
       },
       initialRoute: Routes.splashRoute,
-      getPages: RouteGenerator.getPages(),
-      unknownRoute: GetPage(
-        name: Routes.unDefinedRoute,
-        page: () => RouteGenerator.unDefinedRoute(),
-      ),
+      onGenerateRoute: RouteGenerator.getPages,
+      // getPages: RouteGenerator.getPages(),
+      // unknownRoute: GetPage(
+      //   name: Routes.unDefinedRoute,
+      //   page: () => RouteGenerator.unDefinedRoute(),
+      // ),
     );
   }
 }

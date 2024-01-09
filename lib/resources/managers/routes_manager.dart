@@ -10,44 +10,60 @@ class Routes {
 }
 
 class RouteGenerator {
-  static List<GetPage> getPages() {
-    return <GetPage>[
-      GetPage(
-        name: Routes.splashRoute,
-        page: () => SplashView(),
-        binding: SplashBinding(),
-      ),
-      GetPage(
-        name: Routes.authRoute,
-        page: () => AuthView(),
-        binding: AuthBinding(),
-      ),
-      GetPage(
-        name: Routes.homeRoute,
-        page: () => HomeView(),
-        binding: HomeBinding(),
-      ),
-      GetPage(
-        name: Routes.connectionErrorRoute,
-        page: () => ConnectionErrorView(),
-        binding: ConnectionErrorBinding(),
-      ),
-      GetPage(
-        name: Routes.settingsRoute,
-        page: () => SettingsView(),
-        binding: SettingsBinding(),
-      ),
-    ];
+  static Route getPages(RouteSettings settings) {
+    switch (settings.name) {
+      case Routes.splashRoute:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => SplashCubit(),
+            child: const SplashView(),
+          ),
+        );
+      case Routes.authRoute:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => AuthCubit(
+              authRepository: AuthApi(),
+            ),
+            child: const AuthView(),
+          ),
+        );
+      case Routes.homeRoute:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => HomeCubit(),
+            child: const HomeView(),
+          ),
+        );
+      case Routes.connectionErrorRoute:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => ConnectionErrorCubit(),
+            child: const ConnectionErrorView(),
+          ),
+        );
+      case Routes.settingsRoute:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => SettingsCubit(),
+            child: const SettingsView(),
+          ),
+        );
+      default:
+        return unDefinedRoute();
+    }
   }
 
-  static Scaffold unDefinedRoute() {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(localizations.noRouteFound),
-      ),
-      body: Center(
-        child: Text(localizations.noRouteFound),
-      ),
-    );
+  static MaterialPageRoute unDefinedRoute() {
+    return MaterialPageRoute(builder: (_) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(localizations.noRouteFound),
+        ),
+        body: Center(
+          child: Text(localizations.noRouteFound),
+        ),
+      );
+    });
   }
 }

@@ -1,9 +1,20 @@
 import '../../../resources/helpers/all_imports.dart';
 
-class SplashView extends StatelessWidget {
-  SplashView({super.key});
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
-  final SplashController splashController = Get.find();
+  @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<SplashCubit>(context).checkConnection();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

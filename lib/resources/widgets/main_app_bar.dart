@@ -30,7 +30,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: canBack
           ? IconButton(
               onPressed: () {
-                Get.back();
+                Navigator.pop(context);
               },
               icon: RotatedBox(
                 quarterTurns: Components.isRTL() ? 2 : 0,

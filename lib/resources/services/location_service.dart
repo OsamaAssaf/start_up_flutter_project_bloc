@@ -30,7 +30,7 @@ class LocationService {
             final List<Widget> actions = [
               TextButton(
                 onPressed: () async {
-                  Get.back();
+                  Navigator.pop(context);
                 },
                 child: ScaleText(
                   localizations.ok,
@@ -64,7 +64,7 @@ class LocationService {
           final List<Widget> actions = [
             TextButton(
               onPressed: () async {
-                Get.back();
+                Navigator.pop(context);
               },
               child: ScaleText(
                 localizations.ok,
@@ -96,7 +96,7 @@ class LocationService {
             final List<Widget> actions = [
               TextButton(
                 onPressed: () async {
-                  Get.back();
+                  Navigator.pop(context);
                 },
                 child: ScaleText(
                   localizations.ok,

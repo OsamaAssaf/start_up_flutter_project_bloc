@@ -1,9 +1,7 @@
 import '../../../resources/helpers/all_imports.dart';
 
 class AuthView extends StatelessWidget {
-  AuthView({super.key});
-
-  final AuthController _authController = Get.find();
+  const AuthView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +36,30 @@ class AuthView extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GetBuilder<AuthController>(
-                                builder: (controller) {
-                                  return Text(
-                                    controller.authType == AuthType.login
-                                        ? localizations.login
-                                        : localizations.signUp,
-                                    style: theme.textTheme.displayMedium,
-                                  );
+                              BlocBuilder<AuthCubit, AuthState>(
+                                builder: (context, state) {
+                                  if (state is AuthInitial) {
+                                    return Text(
+                                      state.authType == AuthType.login
+                                          ? localizations.login
+                                          : localizations.signUp,
+                                      style: theme.textTheme.displayMedium,
+                                    );
+                                  }
+                                  return const SizedBox.shrink();
+                                },
+                              ),
+                              BlocBuilder<AuthCubit, AuthState>(
+                                builder: (context, state) {
+                                  if (state is AuthInitial) {
+                                    return Text(
+                                      state.authType == AuthType.login
+                                          ? localizations.login
+                                          : localizations.signUp,
+                                      style: theme.textTheme.displayMedium,
+                                    );
+                                  }
+                                  return const SizedBox.shrink();
                                 },
                               ),
                               const SizedBox(
@@ -56,40 +70,37 @@ class AuthView extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GetBuilder<AuthController>(
-                                      builder: (controller) {
-                                        if (controller.authType == AuthType.login) {
-                                          return const SizedBox.shrink();
+                                    BlocBuilder<AuthCubit, AuthState>(
+                                      builder: (context, state) {
+                                        if (state is AuthInitial) {
+                                          if (state.authType == AuthType.login) {
+                                            return const SizedBox.shrink();
+                                          }
+                                          return Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                localizations.email,
+                                                style: theme.textTheme.displaySmall,
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              const TextField(),
+                                            ],
+                                          );
                                         }
-                                        return Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              localizations.email,
-                                              style: theme.textTheme.displaySmall,
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            const TextField(),
-                                          ],
-                                        );
+                                        return const SizedBox.shrink();
                                       },
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
+                                    const SizedBox(height: 8.0),
                                     Text(
                                       localizations.email,
                                       style: theme.textTheme.displaySmall,
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
+                                    const SizedBox(height: 8.0),
                                     const TextField(),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
+                                    const SizedBox(height: 8.0),
                                     Text(
                                       localizations.password,
                                       style: theme.textTheme.displaySmall,
@@ -105,9 +116,7 @@ class AuthView extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         FilledButton(
-                                          onPressed: () {
-                                            _authController.submit();
-                                          },
+                                          onPressed: BlocProvider.of<AuthCubit>(context).submit,
                                           child: Text(
                                             localizations.login,
                                           ),
@@ -126,7 +135,8 @@ class AuthView extends StatelessWidget {
                                             style: theme.textTheme.bodySmall,
                                           ),
                                           TextButton(
-                                            onPressed: _authController.changeAuthType,
+                                            onPressed:
+                                                BlocProvider.of<AuthCubit>(context).changeAuthType,
                                             child: Text(
                                               localizations.signUp,
                                             ),

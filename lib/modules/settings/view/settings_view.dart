@@ -1,9 +1,7 @@
 import '../../../resources/helpers/all_imports.dart';
 
 class SettingsView extends StatelessWidget {
-  SettingsView({super.key});
-
-  final SettingsController settingsController = Get.find();
+  const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {

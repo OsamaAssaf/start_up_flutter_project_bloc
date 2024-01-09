@@ -67,7 +67,7 @@ class NotificationService {
   }
 
   Future<void> _initFirebaseMessaging() async {
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     Stream<RemoteMessage> onMessageOpenedAppStream = FirebaseMessaging.onMessageOpenedApp;
     onMessageOpenedAppStream.listen((RemoteMessage event) async {});
 
@@ -83,7 +83,7 @@ class NotificationService {
     );
   }
 
-  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
+  // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
 
   Future<RemoteMessage?> getInitialMessage() async {
     RemoteMessage? message = await FirebaseMessaging.instance.getInitialMessage();

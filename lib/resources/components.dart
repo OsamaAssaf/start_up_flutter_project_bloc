@@ -93,8 +93,12 @@ abstract class Components {
     );
   }
 
+  static String getLanguageCode() {
+    return localizations.localeName;
+  }
+
   static bool isRTL() {
-    return Bidi.isRtlLanguage(Get.locale!.languageCode);
+    return Bidi.isRtlLanguage(getLanguageCode());
   }
 
   static bool isDark() {
@@ -206,7 +210,7 @@ abstract class Components {
       initialDate: initialDate ?? DateTime.now(),
       firstDate: firstDate ?? DateTime.now(),
       lastDate: lastDate ?? DateTime.now().add(const Duration(days: 90)),
-      locale: Get.locale!,
+      locale: Locale(getLanguageCode()),
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: isDark()
@@ -234,7 +238,7 @@ abstract class Components {
   static Upgrader upgrader() {
     return Upgrader(
       messages: UpgraderMessages(
-        code: Get.locale!.languageCode,
+        code: getLanguageCode(),
       ),
       debugDisplayAlways: false,
       debugLogging: false,
